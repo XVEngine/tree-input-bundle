@@ -17,6 +17,14 @@ xv-tree-input {
       color: $main-color2;
     }
 
+    .dynatree-folder > .dynatree-icon {
+      background: none;
+      > .icon-folder-open {
+        display:none;
+      }
+    }
+
+
     /*
     span.dynatree-node {
       display: block;

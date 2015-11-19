@@ -106,9 +106,12 @@
     namespace.treeInputComponent.prototype._refresh = function () {
         this._treeInitialized && this.$tree.dynatree("destroy");
 
-        console.log(this._options);
         this.$tree.dynatree(this._options);
         this._treeInitialized = true;
+
+        var $el = this.$tree.find(".dynatree-folder > .dynatree-icon");
+        $el.append("<i class='icon icon-folder'></i>");
+        $el.append("<i class='icon icon-folder-open'></i>");
         return this;
     };
 
