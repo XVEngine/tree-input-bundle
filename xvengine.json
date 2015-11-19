@@ -1,1 +1,12 @@
-{}
+{
+  "src" : {
+    "scss" : [
+      {
+        "files" : "Resources/scss/**/*.scss"
+      },
+      {
+        "files" : "Resources/vendor/**/*.scss"
+      }
+    ]
+  }
+}

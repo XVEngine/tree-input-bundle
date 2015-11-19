@@ -1,3 +1,38 @@
+@import url('//cdn.rawgit.com/bordeux/dynatree/master/dist/skin/ui.dynatree.css');
+
 xv-tree-input {
 
+
+  .dynatree-container {
+    border: 1px solid $border-color;
+    padding-left:10px;
+    min-height: 60px;
+
+
+    span.dynatree-active a {
+      background: $main-color2;
+    }
+
+    span.dynatree-selected a {
+      color: $main-color2;
+    }
+
+    /*
+    span.dynatree-node {
+      display: block;
+      position: relative;
+
+      .dynatree-title {
+        padding: 5px;
+      }
+
+      &.dynatree-active {
+        .dynatree-title {
+          background: $main-color2;
+          color: #FFF;
+        }
+      }
+    }
+    */
+  }
 }
