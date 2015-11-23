@@ -36,7 +36,8 @@
         this.$tree = this.$element.find(".tree");
         var self = this;
         this._options = {
-            generateIds : true,
+            generateIds: true,
+            debugLevel: 0,
             onSelect: function(select, node) {
 
                 self.onInput();
