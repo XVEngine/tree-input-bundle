@@ -39,8 +39,10 @@
             generateIds: true,
             debugLevel: 0,
             onSelect: function(select, node) {
-
                 self.onInput();
+            },
+            onFocus : function(){
+                !self._options['checkbox'] && self.onInput();
             }
         };
 
@@ -122,6 +124,10 @@
     };
 
     namespace.treeInputComponent.prototype.getValue = function () {
+        return this._options['checkbox'] ? this.getValueCheckBox() : this.getValueFocus() ;
+    };
+
+    namespace.treeInputComponent.prototype.getValueCheckBox = function () {
         var selected = [];
         this.$tree.dynatree("getRoot").visit(function(node){
             if(node.isSelected()){
@@ -132,6 +138,19 @@
         return selected;
     };
 
+    namespace.treeInputComponent.prototype.getValueFocus = function () {
+        var focus = null;
+        this.$tree.dynatree("getRoot").visit(function(node){
+            if(node.isFocused()){
+                focus = (node.data.key);
+            }
+        });
+
+        return focus;
+    };
+
+
+
     namespace.treeInputComponent.prototype.setValue = function (values) {
         if(!this._treeInitialized){
             var self = this;
@@ -141,13 +160,20 @@
             return this;
         }
 
+        return this._options['checkbox'] ? this.setValueCheckBox(values) : this.setValueFocus(values) ;
+    };
+
+    /**
+     *
+     * @param values
+     * @returns {namespace.treeInputComponent}
+     */
+    namespace.treeInputComponent.prototype.setValueCheckBox = function (values) {
         if(!app.utils.isArray(values))  values = [];
 
         for(var i = 0; i < values.length; i++){
             values[i] += "";
         }
-
-
 
         this.$tree.dynatree("getRoot").visit(function(node){
             node.select(values.indexOf(node.data.key) > -1);
@@ -156,5 +182,18 @@
         return this;
     };
 
+    /**
+     *
+     * @param value
+     * @returns {namespace.treeInputComponent}
+     */
+    namespace.treeInputComponent.prototype.setValueFocus = function (value) {
+
+        this.$tree.dynatree("getRoot").visit(function(node){
+            (value == node.data.key) && node.focus();
+        });
+
+        return this;
+    };
     return namespace.tickInputComponent;
 })(__ARGUMENT_LIST__);
