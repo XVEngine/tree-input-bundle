@@ -41,7 +41,7 @@
             onSelect: function(select, node) {
                 self.onInput();
             },
-            onFocus : function(){
+            onActivate : function(){
                 !self._options['checkbox'] && self.onInput();
             }
         };
@@ -124,7 +124,7 @@
     };
 
     namespace.treeInputComponent.prototype.getValue = function () {
-        return this._options['checkbox'] ? this.getValueCheckBox() : this.getValueFocus() ;
+        return this._options['checkbox'] ? this.getValueCheckBox() : this.getValueActive() ;
     };
 
     namespace.treeInputComponent.prototype.getValueCheckBox = function () {
@@ -138,15 +138,15 @@
         return selected;
     };
 
-    namespace.treeInputComponent.prototype.getValueFocus = function () {
-        var focus = null;
+    namespace.treeInputComponent.prototype.getValueActive = function () {
+        var active = null;
         this.$tree.dynatree("getRoot").visit(function(node){
-            if(node.isFocused()){
-                focus = (node.data.key);
+            if(node.isActive()){
+                active = (node.data.key);
             }
         });
 
-        return focus;
+        return active;
     };
 
 
@@ -160,7 +160,7 @@
             return this;
         }
 
-        return this._options['checkbox'] ? this.setValueCheckBox(values) : this.setValueFocus(values) ;
+        return this._options['checkbox'] ? this.setValueCheckBox(values) : this.setValueActive(values) ;
     };
 
     /**
@@ -187,10 +187,10 @@
      * @param value
      * @returns {namespace.treeInputComponent}
      */
-    namespace.treeInputComponent.prototype.setValueFocus = function (value) {
+    namespace.treeInputComponent.prototype.setValueActive = function (value) {
 
         this.$tree.dynatree("getRoot").visit(function(node){
-            (value == node.data.key) && node.focus();
+            (value == node.data.key) && node.activateSilently();
         });
 
         return this;
